@@ -4,18 +4,19 @@
     <title>演習課題5-2：外部APIの呼び出しテスト</title>
 </head>
 <body>
-    <h1 id="msg">何かのAPI</h1>
+    <h1 id="msg">天気予報のAPI</h1>
     <form name="apiform"><p>
-        何かのフォーム：<input type="text" name="form_data">
-        <button type="button" id="btn1" onclick="some_api(this.form)">実行</button>
+        <button type="button" id="btn1" onclick="some_api(this.form)">天気予報を見る</button><div id="result"></div>
     </p></form>
     
     <div id="result"></div>
     <script>
-        async function some_api(myForm) {
-            // ここにコードを書く
-            document.getElementById("result").innerHTML += myForm.form_data.value+"<br />";
-            document.apiform.reset();
+        // ここにコードを書く
+        btn1 = document.getElementById("btn1");
+        btn1.onclick = async () => {
+            const aRes = await fetch("https://www.jma.go.jp/bosai/forecast/data/overview_forecast/130000.json");
+            const data = await aRes.text();
+            document.getElementById("result").innerHTML = data;
         }
     </script>
 </body>
